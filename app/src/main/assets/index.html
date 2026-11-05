@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="theme-color" content="#1565c0">
+<title>Kasir Warung V3</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,sans-serif;background:#f3f5f7;color:#202124;min-height:100vh}
+header{background:#1565c0;color:#fff;padding:13px 16px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:100}
+header b{font-size:18px}.user-info{font-size:13px;display:flex;align-items:center;gap:8px}
+main{max-width:1100px;margin:auto;padding:12px}
+.card{background:#fff;border-radius:12px;padding:16px;margin-bottom:12px;box-shadow:0 1px 4px #0001}
+.tabs{display:flex;gap:6px;overflow-x:auto;margin-bottom:12px}
+input,select,button{font-size:16px;padding:11px 12px;border:1px solid #bbb;border-radius:8px}
+input,select{width:100%;margin:4px 0 10px}
+button{background:#1565c0;color:#fff;border:0;font-weight:bold;cursor:pointer}
+button:active{transform:scale(.98)}
+.secondary{background:#616161}.danger{background:#c62828}.success{background:#2e7d32}
+.row{display:flex;gap:8px;flex-wrap:wrap}.row>*{flex:1;min-width:130px}
+.hidden{display:none!important}.small{font-size:13px;color:#666}
+.msg{padding:10px;border-radius:8px;margin:8px 0;display:none}
+.ok{background:#e8f5e9;color:#1b5e20}.err{background:#ffebee;color:#b71c1c}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{padding:9px 7px;border-bottom:1px solid #eee;vertical-align:middle}
+.tablewrap{overflow-x:auto}
+.total{font-size:22px;font-weight:bold;text-align:right;margin:14px 0}
+.stat{font-size:16px;padding:12px;margin:6px 0;background:#f7f7f7;border-radius:8px}
+.low{color:#c62828;font-weight:bold}.good{color:#2e7d32;font-weight:bold}
+#loginScreen{min-height:100vh;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#1565c0,#0d47a1);padding:20px}
+.login-box{background:#fff;padding:28px 24px;border-radius:16px;width:100%;max-width:380px;box-shadow:0 10px 30px #0003}
+.login-box h2{text-align:center;color:#1565c0;margin-bottom:6px}
+.subtitle{text-align:center;color:#666;font-size:14px;margin-bottom:22px}
+label{font-size:14px;font-weight:bold;display:block;margin-top:4px}
+.modal-overlay{position:fixed;inset:0;background:#0009;display:flex;align-items:center;justify-content:center;z-index:9999;padding:16px}
+.modal{background:#fff;border-radius:14px;max-width:430px;width:100%;max-height:90vh;overflow:auto;padding:20px}
+.modal-actions{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap}
+.modal-actions button{flex:1}
+.kpi{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.kpi .stat{margin:0;text-align:center}
+@media print{
+html,body{margin:0!important;padding:0!important;width:58mm!important;background:#fff!important}
+body *{visibility:hidden!important}
+#receiptModal{display:block!important;position:absolute!important;inset:0!important;background:#fff!important;padding:0!important}
+#receiptModal .modal{display:block!important;position:absolute!important;left:0!important;top:0!important;width:58mm!important;max-width:none!important;max-height:none!important;padding:0!important;margin:0!important;border:0!important;box-shadow:none!important;overflow:visible!important}
+#printArea,#printArea *{visibility:visible!important}
+#printArea{position:relative!important;left:0!important;top:0!important;width:58mm!important;font-family:'Courier New',monospace;font-size:11px;line-height:1.2;color:#000;padding:2mm}
+.no-print{display:none!important}
+@page{size:58mm auto;margin:0}
+}
+</style>
+</head>
+<body>
+
+<div id="loginScreen">
+<div class="login-box">
+<h2>🛒 Kasir Warung V3</h2>
+<div class="subtitle">Kasir Offline + Struk 58mm + Waktu HP</div>
+<label>User ID</label>
+<input id="loginUser" autocomplete="username" placeholder="admin">
+<label>Password</label>
+<input id="loginPass" type="password" autocomplete="current-password" placeholder="admin123">
+<div id="loginMsg" class="msg"></div>
+<button style="width:100%;margin-top:8px" onclick="doLogin()">Masuk</button>
+<p class="small" style="text-align:center;margin-top:14px">Default: <b>admin</b> / <b>admin123</b></p>
+</div>
+</div>
+
+<div id="app" class="hidden">
+<header>
+<b>🛒 Kasir Warung V3</b>
+<div class="user-info">
+<span id="current
